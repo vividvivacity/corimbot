@@ -4,12 +4,14 @@ import re
 import osu
 import os
 import menu
+import corims_quotes
 
 from discord.ext import commands
 from urllib.parse import urlparse
 
 # from bot_token import bot_token // No longer needed
 from thanos_quotes import thanos_quotes
+from corims_quotes import corim_quotes
 
 bot = commands.Bot(command_prefix="!corim ")
 bot_token = os.environ.get("DISCORD_BOT_TOKEN")
@@ -70,6 +72,19 @@ async def thanos(ctx):
     quote_num = random.randint(0, len(thanos_quotes) - 1)
     quote = thanos_quotes[quote_num]
     await ctx.send(quote)
+
+#my stuff
+@bot.command(name="corim")
+async def corim(ctx):
+    quote_num = random.randint(0, len(corim_quotes) - 1)
+    quote = corim_quotes[quote_num]
+    await ctx.send(quote)
+
+@bot.command(name="add")
+async def add(ctx, quote):
+    corims_quotes.add_quote(quote)
+    await ctx.send("Quote added to corim's quotes!")
+#---
 
 
 @bot.command(name="flip")
